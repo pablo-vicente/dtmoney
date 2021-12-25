@@ -1,11 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { Container } from "./styles";
 
+interface Transaction {
+    id: number,
+    title: string,
+    type: string,
+    category: string,
+    amount: number,
+    creatAt: Date
+}
+
 export function TransactionsTable() {
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
+
     useEffect(() => {
         api.get('transactions')
-            .then(res => console.log(res))
+            .then(res => setTransactions(res.data.transactions))
     }, [])
 
     return (
@@ -20,19 +31,23 @@ export function TransactionsTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Desenvolvimento de WebSite</td>
-                        <td className="deposit">R$ 12.000</td>
-                        <td>Desenvolvimento</td>
-                        <td>20/02/2021</td>
-                    </tr>
-                    <tr>
-                        <td>Alguel</td>
-                        <td className="withdraw">-R$ 1.100</td>
-                        <td>Casa</td>
-                        <td>17/02/2021</td>
-                    </tr>
-
+                    {
+                        transactions.map(transaction => (
+                            <tr key={transaction.id}>
+                                <td>{transaction.title}</td>
+                                <td className={transaction.type}>
+                                    {new Intl.NumberFormat('pt-BR', {
+                                        style: 'currency',
+                                        currency: "BRL"
+                                    }).format(transaction.amount)}
+                                </td>
+                                <td>{transaction.category}</td>
+                                <td>
+                                    {new Intl.DateTimeFormat('pt-BR').format(new Date(transaction.creatAt))}
+                                </td>
+                            </tr>
+                        ))
+                    }
                 </tbody>
             </table>
         </Container>

@@ -56,7 +56,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     .react-modal-overlay{
-        background: rgba(0,0,0,0);
+        background: rgba(0,0,0,0.5);
 
         position: fixed;
         top: 0;
@@ -77,7 +77,7 @@ export const GlobalStyle = createGlobalStyle`
         border-radius: 0.24rem;
     }
 
-    react-modal-close{
+    .react-modal-close{
         position: absolute;
         right: 1.5rem;
         top: 1.5rem;
