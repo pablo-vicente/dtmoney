@@ -4,12 +4,13 @@ import { Dashboard } from "./components/Dashboard";
 import { Header } from "./components/Header";
 import { NewTransactionModal } from './components/NewTransactionModal';
 import { GlobalStyle } from "./styles/global";
-import { TransactionsProvider } from './TransactionsContext';
+import { TransactionsProvider } from '../src/Hooks/useTransactions';
 
 Modal.setAppElement("#root")
 
 export function App() {
   const [isNewTransactionsOpen, setIsNewTransactionsOpen] = useState(false);
+
 
   function handleOpenNewTransactionModal() {
     setIsNewTransactionsOpen(true)
